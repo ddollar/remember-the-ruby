@@ -10,7 +10,10 @@ class API
   end
   
   def initialize_api
-    RPC::Transport.init({:key => 'cb877b5c450d216ce9e563394dff6c07', :secret => '97cbbc48a9b1b54c', :frob => @frob, :token => @token})
+    RPC::Transport.init({:key    => 'cb877b5c450d216ce9e563394dff6c07', 
+                         :secret => '97cbbc48a9b1b54c', 
+                         :frob   => @frob, 
+                         :token  => @token})
   end
   
   def authorization_url
