@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'pp'
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), '..', 'lib', 'remember-the-ruby'))
+    
+storage = RememberTheRuby::Storage
+
+api = RememberTheRuby::API.new(:frob => storage[:frob], :token => storage[:token])
+
+unless storage[:frob]
+  system %{open "#{api.authorization_url}"}
+  storage[:frob] = api.frob
+  exit
+end
+
+unless storage[:token]
+  storage[:token] = api.authenticate
+end
+
+pp api.lists
+exit
+
+api.lists.each do |list|
+  pp list
+end
