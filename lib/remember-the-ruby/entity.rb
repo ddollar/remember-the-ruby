@@ -14,5 +14,9 @@ class Entity < Hash
     type.new(data)
   end
   
+  def self.list_from_rsp(rsp, element)
+    EntityList.from_rsp(self, rsp, element)
+  end
+  
 end
 end

@@ -93,7 +93,7 @@ class Lists
   
   def self.get_list
     rsp = Transport.request('rtm.lists.getList')
-    EntityList.from_rsp(List, rsp, 'lists/list')
+    List.list_from_rsp(rsp, 'lists/list')
   end
   
 end
@@ -105,7 +105,7 @@ class Tasks
     params[:filter]    ||= nil
     params[:last_sync] ||= nil
     rsp = Transport.request('rtm.tasks.getList', params)
-    EntityList.from_rsp(Task, rsp, 'tasks/list/taskseries/task')
+    Task.list_from_rsp(rsp, 'tasks/list/taskseries/task')
   end
 
 end
