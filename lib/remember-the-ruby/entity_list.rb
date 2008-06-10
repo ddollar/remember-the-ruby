@@ -16,6 +16,21 @@ class EntityList < Array
     entity
   end
   
+  def find(params)
+    matches = EntityList.new(@type)
+    self.each do |entity|
+      matched = true
+      params.each do |key, value|
+        unless entity[key] == value
+          matched = false
+          break
+        end
+      end
+      matches << entity if matched
+    end
+    matches
+  end
+  
   def self.from_rsp(type, rsp, xpath)
     entity_list = EntityList.new(type)
     rsp.get_elements(xpath).map do |element|

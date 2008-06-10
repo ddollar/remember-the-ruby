@@ -24,8 +24,10 @@ unless storage[:token]
   storage[:token] = api.authenticate
 end
 
-api.tasks.each do |task|
-  pp task
-end
+# api.tasks.each do |task|
+#   pp task
+# end
+# 
+# pp api.lists[0].tasks.new
 
-pp api.lists[0].tasks.new
+pp api.lists.find('id' => api.settings['defaultlist']).first.tasks

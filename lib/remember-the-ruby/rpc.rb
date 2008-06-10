@@ -98,6 +98,18 @@ class Lists
   
 end
 
+class Settings
+  
+  def self.get_list
+    rsp = Transport.request('rtm.settings.getList')
+    rsp.get_elements('settings').first.inject({}) do |memo, element|
+      memo[element.name] = element.text
+      memo
+    end
+  end
+  
+end
+
 class Tasks
   
   def self.get_list(params={})
