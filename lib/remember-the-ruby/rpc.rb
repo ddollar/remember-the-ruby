@@ -68,15 +68,6 @@ class Transport
     element.attributes
   end
   
-  def self.hashify_elements(elements)
-    elements.map do |task|
-      task.attributes.keys.inject({}) do |memo, key|
-        memo[key] = task.attributes[key]
-        memo
-      end
-    end
-  end
-  
 end
 
 class Auth < Transport
@@ -98,14 +89,23 @@ class Auth < Transport
   
 end
 
+class Lists
+  
+  def self.get_list
+    rsp = Transport.request('rtm.lists.getList')
+    EntityList.from_rsp(List, rsp, 'lists/list')
+  end
+  
+end
+
 class Tasks
   
   def self.get_list(params={})
     params[:list_id]   ||= nil
     params[:filter]    ||= nil
     params[:last_sync] ||= nil
-    rsp = Transport.request('rtm.tasks.getList')
-    Transport.hashify_elements(rsp.get_elements('tasks/list/taskseries/task'))
+    rsp = Transport.request('rtm.tasks.getList', params)
+    EntityList.from_rsp(Task, rsp, 'tasks/list/taskseries/task')
   end
 
 end

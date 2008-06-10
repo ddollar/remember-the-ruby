@@ -26,6 +26,10 @@ class API
   end
   
   def lists
+    RPC::Lists.get_list
+  end
+  
+  def tasks
     RPC::Tasks.get_list
   end
   

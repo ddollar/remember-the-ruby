@@ -2,12 +2,17 @@
 
 require 'pp'
 
-require File.expand_path(
-    File.join(File.dirname(__FILE__), '..', 'lib', 'remember-the-ruby'))
+require File.expand_path(File.join(
+  File.dirname(__FILE__), 
+  '..', 
+  'lib', 
+  'remember-the-ruby'
+))
     
 storage = RememberTheRuby::Storage
 
-api = RememberTheRuby::API.new(:frob => storage[:frob], :token => storage[:token])
+api = RememberTheRuby::API.new(:frob  => storage[:frob], 
+                               :token => storage[:token])
 
 unless storage[:frob]
   system %{open "#{api.authorization_url}"}
@@ -19,9 +24,8 @@ unless storage[:token]
   storage[:token] = api.authenticate
 end
 
-pp api.lists
-exit
+# api.tasks.each do |task|
+#   pp task
+# end
 
-api.lists.each do |list|
-  pp list
-end
+pp api.lists[0].tasks.new
