@@ -24,10 +24,23 @@ unless storage[:token]
   storage[:token] = api.authenticate
 end
 
+# pp api.tasks
+
+# task_id = api.tasks.first['id']
+# pp api.tasks.find(task_id.to_i)
+# pp api.tasks.find(task_id.to_s)
+
+pp api.tags
+pp api.tags.first.tasks.first.tags.first.tasks.first
+
+# pp api.lists.find('id' => api.settings['defaultlist']).first.tasks
+
+# api.tasks.each do |task|
+#   pp task unless task['tags'] == [{}]
+# end
+
 # api.tasks.each do |task|
 #   pp task
 # end
 # 
 # pp api.lists[0].tasks.new
-
-pp api.lists.find('id' => api.settings['defaultlist']).first.tasks
