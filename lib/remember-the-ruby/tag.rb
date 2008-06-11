@@ -1,7 +1,7 @@
 module RememberTheRuby
 class Tag < Entity
 
-  def self.from_element(element)
+  def self.from_element(transport, element)
     tag = super
     tag['name'] = element.text
     tag
@@ -12,7 +12,7 @@ class Tag < Entity
   end
   
   def tasks
-    tasks = RPC::Tasks.get_list(:filter => "tag:#{self["name"]}")
+    tasks = @transport.tasks.get_list(:filter => "tag:#{self["name"]}")
     # TODO: add default tag to the tasks list
     tasks
   end

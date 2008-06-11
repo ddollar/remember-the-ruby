@@ -1,20 +1,21 @@
 module RememberTheRuby
 class Entity < Hash
   
-  def initialize(data={})
+  def initialize(transport, data={})
+    @transport = transport
     self.merge!(data)
   end
   
-  def self.from_element(element)
+  def self.from_element(transport, element)
     data = element.attributes.keys.inject({}) do |memo, key|
       memo[key] = element.attributes[key]
       memo
     end
-    self.new(data)
+    self.new(transport, data)
   end
   
-  def self.list_from_rsp(rsp, element)
-    EntityList.from_rsp(self, rsp, element)
+  def self.list_from_rsp(transport, rsp, element)
+    EntityList.from_rsp(transport, self, rsp, element)
   end
   
   def method_missing(method_name)

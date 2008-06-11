@@ -3,13 +3,14 @@ class EntityList < Array
   
   attr_accessor :defaults
   
-  def initialize(type)
-    @type     = type
-    @defaults = {}
+  def initialize(transport, type)
+    @transport = transport
+    @type      = type
+    @defaults  = {}
   end
   
   def new
-    entity = @type.new
+    entity = @type.new(@transport)
     @defaults.each do |key, value|
       entity[key] = value
     end
@@ -30,7 +31,7 @@ class EntityList < Array
         amount = :many
     end
     
-    matches = EntityList.new(@type)
+    matches = EntityList.new(@transport, @type)
     self.each do |entity|
       matched = true
       params.each do |key, value|
@@ -45,10 +46,10 @@ class EntityList < Array
     amount == :many ? matches : matches.first
   end
   
-  def self.from_rsp(type, rsp, xpath)
-    entity_list = EntityList.new(type)
+  def self.from_rsp(transport, type, rsp, xpath)
+    entity_list = EntityList.new(transport, type)
     rsp.get_elements(xpath).map do |element|
-      entity_list << type.from_element(element)
+      entity_list << type.from_element(transport, element)
     end
     entity_list
   end

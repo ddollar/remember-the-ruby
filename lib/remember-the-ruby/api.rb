@@ -1,19 +1,13 @@
 module RememberTheRuby
 class API
   
-  attr_reader :frob, :token
-  
   def initialize(options={})
-    @frob = options[:frob]
-    @token = options[:token]
-    initialize_api
-  end
-  
-  def initialize_api
-    RPC::Transport.init({:key    => 'cb877b5c450d216ce9e563394dff6c07', 
-                         :secret => '97cbbc48a9b1b54c', 
-                         :frob   => @frob, 
-                         :token  => @token})
+    @transport = RPC::Transport.new(
+      :key    => 'cb877b5c450d216ce9e563394dff6c07', 
+      :secret => '97cbbc48a9b1b54c', 
+      :frob   => options[:frob], 
+      :token  => options[:token]    
+    )
   end
   
   def authorization_url
@@ -23,18 +17,27 @@ class API
   
   def authenticate
     self.token = RPC::Auth.get_token
+    puts "T: #{@transport.token}"
   end
   
+  # first-order objects #####################################################
+  
   def lists
-    RPC::Lists.get_list
+    @transport.lists.get_list
   end
   
   def settings
-    RPC::Settings.get_list
+    @transport.settings.get_list
   end
   
+  def tasks
+    @transport.tasks.get_list
+  end
+  
+  # derivative objects ######################################################
+
   def tags
-    found_tags = EntityList.new(Tag)
+    found_tags = EntityList.new(@transport, Tag)
     tasks.each do |task|
       task.tags.each do |tag|
         found = false
@@ -49,19 +52,13 @@ class API
     end
     found_tags
   end
-  
-  def tasks
-    RPC::Tasks.get_list
-  end
-  
+
   def frob=(frob)
-    @frob = frob
-    initialize_api
+    @transport.frob = frob
   end
   
   def token=(token)
-    @token = token
-    initialize_api
+    @transport.token = token
   end
   
 end
