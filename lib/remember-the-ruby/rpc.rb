@@ -117,7 +117,7 @@ class Tasks
     params[:filter]    ||= nil
     params[:last_sync] ||= nil
     rsp = Transport.request('rtm.tasks.getList', params)
-    Task.list_from_rsp(rsp, 'tasks/list/taskseries/task')
+    Task.list_from_rsp(rsp, 'tasks/list/taskseries')
   end
 
 end

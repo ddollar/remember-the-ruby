@@ -33,6 +33,23 @@ class API
     RPC::Settings.get_list
   end
   
+  def tags
+    found_tags = EntityList.new(Tag)
+    tasks.each do |task|
+      task.tags.each do |tag|
+        found = false
+        found_tags.each do |found_tag|
+          if tag.to_s == found_tag.to_s
+            found = true
+            break
+          end
+        end
+        found_tags << tag unless found
+      end
+    end
+    found_tags
+  end
+  
   def tasks
     RPC::Tasks.get_list
   end

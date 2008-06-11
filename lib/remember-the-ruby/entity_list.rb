@@ -16,7 +16,20 @@ class EntityList < Array
     entity
   end
   
-  def find(params)
+  def find(options)
+
+    case options
+      when String, Integer then 
+        params = { 'id' => options.to_s }
+        amount = :one
+      when Hash then 
+        params = options
+        amount = :many
+      else 
+        params = {}
+        amount = :many
+    end
+    
     matches = EntityList.new(@type)
     self.each do |entity|
       matched = true
@@ -28,13 +41,14 @@ class EntityList < Array
       end
       matches << entity if matched
     end
-    matches
+    
+    amount == :many ? matches : matches.first
   end
   
   def self.from_rsp(type, rsp, xpath)
     entity_list = EntityList.new(type)
     rsp.get_elements(xpath).map do |element|
-      entity_list << Entity.from_element(type, element)
+      entity_list << type.from_element(element)
     end
     entity_list
   end
