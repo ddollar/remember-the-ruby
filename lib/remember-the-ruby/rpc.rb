@@ -53,7 +53,21 @@ class Transport
     @transport_http = Net::HTTP.start(uri.host, uri.port)
   end
   
-  def build_service_path(service, params)
+  def clear_empty_parameters(params)
+    params.dup.each do |k, v|
+      params.delete(k) if v.nil? || v == ''
+    end
+  end
+  
+  def auth_path(params)
+    self.service_path('auth', params)
+  end
+
+  def rest_path(params)
+    self.service_path('rest', params)
+  end
+
+  def service_path(service, params)
     params[:frob]       ||= @frob
     params[:api_key]    ||= @key
     params[:auth_token] ||= @token
@@ -62,20 +76,6 @@ class Transport
     
     params[:api_sig] = sign_parameters(params)
     "/services/#{service}/?#{flatten_parameters(params)}"
-  end
-  
-  def clear_empty_parameters(params)
-    params.dup.each do |k, v|
-      params.delete(k) if v.nil? || v == ''
-    end
-  end
-  
-  def rest_path(params)
-    self.build_service_path('rest', params)
-  end
-  
-  def build_auth_path(params)
-    self.build_service_path('auth', params)
   end
 
   def sign_parameters(params)
@@ -106,7 +106,7 @@ class Auth < Transported
   
   def get_authorization_url(params={})
     params[:perms] ||= 'delete'
-    data = Transport::TRANSPORT_URI + Transport.build_auth_path(params)
+    data = Transport::TRANSPORT_URI + Transport.auth_path(params)
   end
   
   def get_frob
