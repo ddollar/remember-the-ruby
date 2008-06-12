@@ -9,12 +9,10 @@ require File.expand_path(File.join(
   'remember-the-ruby'
 ))
     
-storage = RememberTheRuby::Storage
+storage = RememberTheRuby::Storage.new
 
 api = RememberTheRuby::API.new(:frob  => storage[:frob], 
                                :token => storage[:token])
-
-pp api
 
 unless storage[:frob]
   system %{open "#{api.authorization_url}"}
@@ -25,6 +23,8 @@ end
 unless storage[:token]
   storage[:token] = api.authenticate
 end
+
+# pp api
 
 # pp api.tasks
 
