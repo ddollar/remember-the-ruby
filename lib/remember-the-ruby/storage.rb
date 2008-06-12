@@ -2,17 +2,10 @@ require 'rubygems'
 require 'preferences'
 
 module RememberTheRuby
-class Storage < Hash
+class Storage < Preferences::Manager
   
-  @@manager = Preferences::Manager.new(:remember_the_ruby)
-  
-  def self.[]=(key, value)
-    @@manager[key] = value
-    @@manager.save
-  end
-  
-  def self.[](key)
-    @@manager[key]
+  def initialize
+    super(:remember_the_ruby, :autosave => true)
   end
 
 end
