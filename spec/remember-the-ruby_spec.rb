@@ -4,8 +4,9 @@ include RememberTheRuby
 
 describe RememberTheRuby do
   
-  describe 'rspec' do
+  describe 'api' do
 
+    
     it "should have a version" do
       lambda { RememberTheRuby.version }.should_not raise_error
     end

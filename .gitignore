@@ -3,3 +3,4 @@ doc/coverage
 doc/rdoc
 output
 pkg
+spec/settings.yml

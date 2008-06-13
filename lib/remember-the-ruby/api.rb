@@ -17,7 +17,6 @@ class API
   
   def authenticate
     self.token = RPC::Auth.get_token
-    puts "T: #{@transport.token}"
   end
   
   # first-order objects #####################################################
@@ -52,6 +51,8 @@ class API
     end
     found_tags
   end
+  
+  ## accessors ##############################################################
 
   def frob=(frob)
     @transport.frob = frob

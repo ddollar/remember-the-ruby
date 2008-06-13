@@ -22,10 +22,6 @@ unless storage[:token]
   storage[:token] = api.authenticate
 end
 
-# pp api
-
-# pp api.tasks
-
 # task_id = api.tasks.first['id']
 # pp api.tasks.find(task_id.to_i)
 # pp api.tasks.find(task_id.to_s)
