@@ -1,18 +1,16 @@
 #!/usr/bin/env ruby
 
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'remember-the-ruby'))
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'rtr'))
+
 require 'pp'
 
-require File.expand_path(File.join(
-  File.dirname(__FILE__), 
-  '..', 
-  'lib', 
-  'remember-the-ruby'
-))
-    
 storage = RememberTheRuby::Storage.new
 
 api = RememberTheRuby::API.new(:frob  => storage[:frob], 
                                :token => storage[:token])
+
+storage[:cache_timeout] ||= 15.minutes
 
 unless storage[:frob]
   system %{open "#{api.authorization_url}"}
