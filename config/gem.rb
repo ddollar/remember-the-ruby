@@ -1,9 +1,9 @@
-@config.name     = "generic"
+@config.name     = "remember-the-ruby"
 
 require "lib/#{@config.name}"
 
-@config.version  = Generic.version
-@config.summary  = "Summary Here"
+@config.version  = RememberTheRuby.version
+@config.summary  = "A Ruby interface to Remember the Milk"
 @config.homepage = "http://peervoice.com/software/#{@config.name}"
 
 @config.author_name  = "David Dollar"
