@@ -1,18 +1,22 @@
-def api_connection
+def api
   
-  api = RememberTheRuby::API.new(:frob  => $storage[:frob], 
-                                 :token => $storage[:token])
+  @api ||= begin
 
-  unless $storage[:frob]
-    system %{open "#{api.authorization_url}"}
-    $storage[:frob] = api.frob
-    exit
-  end
+    api = RememberTheRuby::API.new(:frob  => $storage[:frob], 
+                                   :token => $storage[:token])
 
-  unless $storage[:token]
-    $storage[:token] = api.authenticate
-  end
+    unless $storage[:frob]
+      system %{open "#{api.authorization_url}"}
+      $storage[:frob] = api.frob
+      exit
+    end
+
+    unless $storage[:token]
+      $storage[:token] = api.authenticate
+    end
   
-  api
+    api
+
+  end
   
 end

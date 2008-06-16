@@ -1,6 +1,10 @@
 require 'date'
+require 'rubygems'
+require 'term/ansicolor'
 
 class String
+  
+  include Term::ANSIColor
   
   def to_date
     begin
@@ -9,6 +13,10 @@ class String
       date = nil
     end
     date
+  end
+  
+  def blank?
+    self == ""
   end
   
 end

@@ -35,6 +35,10 @@ class API
   
   # derivative objects ######################################################
 
+  def default_list
+    lists.find(settings["defaultlist"])
+  end
+  
   def tags
     found_tags = EntityList.new(@transport, Tag)
     tasks.each do |task|

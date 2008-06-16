@@ -34,6 +34,17 @@ class Entity < Hash
   def []=(key, value)
     regular_writer(key.to_s, value)
   end
+
+  alias_method :original_lookup, :[]
+
+  def [](key)
+    value = self
+    parts = key.to_s.split('/')
+    parts.each do |part|
+      value = value.original_lookup(part)
+    end
+    value
+  end
     
 end
 end

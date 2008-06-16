@@ -53,6 +53,6 @@ class EntityList < Array
     end
     entity_list
   end
-  
+
 end
 end
