@@ -5,30 +5,16 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'rtr'))
 
 require 'pp'
 
-storage = RememberTheRuby::Storage.new
+$storage = RememberTheRuby::Storage.new
+$storage[:cache_timeout] ||= 15.minutes
 
-api = RememberTheRuby::API.new(:frob  => storage[:frob], 
-                               :token => storage[:token])
+usage_and_exit if ARGV.length < 1
 
-storage[:cache_timeout] ||= 15.minutes
+command = ARGV.shift
+options = ARGV.dup
 
-unless storage[:frob]
-  system %{open "#{api.authorization_url}"}
-  storage[:frob] = api.frob
-  exit
-end
+proc = $methods[command.to_sym]
 
-unless storage[:token]
-  storage[:token] = api.authenticate
-end
+usage_and_exit unless proc
 
-# task_id = api.tasks.first['id']
-# pp api.tasks.find(task_id.to_i)
-# pp api.tasks.find(task_id.to_s)
-
-# pp api.tags
-# pp api.tags.first.tasks.first.tags.first.tasks.first
-
-# pp api.lists.find('id' => api.settings['defaultlist']).first.tasks
-
-# pp api.lists[0].tasks.new
+proc.call(options)

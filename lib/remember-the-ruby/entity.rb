@@ -25,6 +25,8 @@ class Entity < Hash
   alias_method :regular_reader, :[]
   alias_method :regular_writer, :[]=
 
+  undef id
+  
   def [](key)
     regular_reader(key.to_s)
   end

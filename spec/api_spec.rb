@@ -4,8 +4,6 @@ include RememberTheRuby
 
 require File.join(File.dirname(__FILE__), 'settings')
 
-require 'yaml'
-
 describe RememberTheRuby::API do
 
   before(:all) do
