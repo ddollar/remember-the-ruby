@@ -1,4 +1,3 @@
-*.gemspec
 doc/coverage
 doc/rdoc
 output
