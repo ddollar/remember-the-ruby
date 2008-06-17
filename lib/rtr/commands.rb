@@ -4,9 +4,10 @@ module RTR
 class Commands
   
   register_method :tasks do |options|
-    
+
     puts "Oustanding Tasks".white.bold
     puts
+    
     api.default_list.tasks.sorted_by('next/due').reverse.each do |task|
 
       now = DateTime.now
@@ -26,11 +27,15 @@ class Commands
       title = task.name
       title = title.send(color).bold if color
       
-      prefix = " * "
+      prefix = " *"
       prefix = prefix.send(color).bold if color
       
-      puts prefix + title
+      suffix = task.tags.map { |t| "@#{t.name}" }.join(' ').cyan
+
+      puts "#{prefix} #{title} #{suffix}"
+      
     end
+    
   end
   
 end
