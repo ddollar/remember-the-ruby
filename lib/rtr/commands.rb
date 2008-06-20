@@ -8,7 +8,9 @@ class Commands
     puts "Oustanding Tasks".white.bold
     puts
     
-    api.default_list.tasks.sorted_by('next/due').reverse.each do |task|
+    tasks = $storage[:tasks] || api.default_list.tasks
+    
+    tasks.sorted_by('next/due').reverse.each do |task|
 
       now = DateTime.now
       
@@ -35,6 +37,9 @@ class Commands
       puts "#{prefix} #{title} #{suffix}"
       
     end
+    
+    $storage[:tasks] = tasks
+    $storage.set_cache_timeout(:tasks, 30.minutes)
     
   end
   
