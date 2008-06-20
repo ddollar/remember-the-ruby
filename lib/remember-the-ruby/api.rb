@@ -11,12 +11,12 @@ class API
   end
   
   def authorization_url
-    self.frob = RPC::Auth.get_frob
-    RPC::Auth.get_authorization_url
+    self.frob = @transport.auth.get_frob
+    @transport.auth.get_authorization_url
   end
   
   def authenticate
-    self.token = RPC::Auth.get_token
+    self.token = @transport.auth.get_token
   end
   
   # first-order objects #####################################################
@@ -58,6 +58,10 @@ class API
   
   ## accessors ##############################################################
 
+  def frob
+    @transport.frob
+  end
+  
   def frob=(frob)
     @transport.frob = frob
   end

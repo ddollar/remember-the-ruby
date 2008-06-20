@@ -106,7 +106,7 @@ class Auth < Transported
   
   def get_authorization_url(params={})
     params[:perms] ||= 'delete'
-    data = Transport::TRANSPORT_URI + Transport.auth_path(params)
+    data = Transport::TRANSPORT_URI + @transport.auth_path(params)
   end
   
   def get_frob
