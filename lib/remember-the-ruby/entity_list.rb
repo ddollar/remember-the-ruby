@@ -46,7 +46,7 @@ class EntityList < Array
     amount == :many ? matches : matches.first
   end
   
-  def self.from_rsp(transport, type, rsp, xpath)
+  def self.from_element(transport, type, rsp, xpath)
     entity_list = EntityList.new(transport, type)
     rsp.get_elements(xpath).map do |element|
       entity_list << type.from_element(transport, element)

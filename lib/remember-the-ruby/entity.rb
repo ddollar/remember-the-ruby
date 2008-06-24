@@ -14,8 +14,8 @@ class Entity < Hash
     self.new(transport, data)
   end
   
-  def self.list_from_rsp(transport, rsp, element)
-    EntityList.from_rsp(transport, self, rsp, element)
+  def self.list_from_elements(transport, rsp, element)
+    EntityList.from_element(transport, self, rsp, element)
   end
   
   def method_missing(method_name)

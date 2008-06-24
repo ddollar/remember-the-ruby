@@ -125,7 +125,7 @@ class Lists < Transported
   
   def get_list
     rsp = @transport.request('rtm.lists.getList')
-    List.list_from_rsp(@transport, rsp, 'lists/list')
+    List.list_from_elements(@transport, rsp, 'lists/list')
   end
   
 end
@@ -149,7 +149,7 @@ class Tasks < Transported
     params[:filter]    ||= nil
     params[:last_sync] ||= nil
     rsp = @transport.request('rtm.tasks.getList', params)
-    Task.list_from_rsp(@transport, rsp, 'tasks/list/taskseries')
+    Task.list_from_elements(@transport, rsp, 'tasks/list/taskseries')
   end
 
 end
