@@ -43,5 +43,10 @@ class Commands
     
   end
   
+  register_method :purge do |options|
+    $storage.purge_cache!
+  end
+  
+  
 end
 end

@@ -18,6 +18,15 @@ class Storage < Preferences::Manager
     original_reader(:cache) ? original_reader(:cache)[key] : nil
   end
   
+  def purge_cache!
+    return unless self[:cache].is_a?(Enumerable)
+    self[:cache].each do |key, timeout|
+      self.delete(key)
+    end
+    self.delete(:cache)
+    self.save
+  end
+  
   alias_method :original_reader, :[]
   
   def [](key)
