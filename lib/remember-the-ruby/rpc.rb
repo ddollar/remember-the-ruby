@@ -50,6 +50,10 @@ class Transport
     @tasks ||= Tasks.new(self)
   end
   
+  def timeline
+    Timelines.new(self).create
+  end
+  
   # private #################################################################
   
   def build_transport_http
@@ -156,6 +160,15 @@ class Tasks < Transported
     Task.list_from_elements(@transport, rsp, 'tasks/list/taskseries')
   end
 
+end
+
+class Timelines < Transported
+  
+  def create(params={})
+    rsp = @transport.request('rtm.timelines.create', params)
+    rsp.get_elements('timeline').first.text
+  end
+  
 end
 
 end
