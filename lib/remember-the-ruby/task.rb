@@ -9,5 +9,12 @@ class Task < Entity
     task
   end
   
+  def save!(params={})
+    hydrate_from do
+      @transport.tasks.add(:name => self[:name], :parse => params[:parse])
+    end
+    # TODO: apply tags
+  end
+  
 end
 end

@@ -152,6 +152,18 @@ end
 
 class Tasks < Transported
   
+  def add(params={})
+    params[:list_id]  ||= nil
+    params[:name]     ||= nil
+    params[:parse]    ||= nil
+    
+    params[:timeline] = @transport.timeline
+    params[:parse]    = params[:parse] ? 1 : 0
+    
+    rsp = @transport.request('rtm.tasks.add', params)
+    Task.from_element(@transport, rsp.get_elements('list/taskseries').first)
+  end
+  
   def get_list(params={})
     params[:list_id]   ||= nil
     params[:filter]    ||= nil

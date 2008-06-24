@@ -1,7 +1,22 @@
 require 'term/ansicolor'
+require 'pp'
 
 module RTR
 class Commands
+  
+  register_method :add do |options|
+    tags, task_name = options.partition { |o| o[0..0] == '@' }
+    task_name = task_name.join(' ')
+    
+    task = api.tasks.new
+
+    task["name"] = task_name
+    task["tags"] = tags.map { |tag| tag[1..-1] }
+    
+    task.save!(:parse => true)
+    
+    $storage.purge_cache!
+  end
   
   register_method :tasks do |options|
 

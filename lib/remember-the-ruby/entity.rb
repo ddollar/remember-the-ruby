@@ -22,6 +22,13 @@ class Entity < Hash
     self[method_name]
   end
   
+  def hydrate_from(&blk)
+    entity = yield blk
+    entity.each do |key, value|
+      self[key] = value
+    end
+  end
+  
   alias_method :regular_reader, :[]
   alias_method :regular_writer, :[]=
 
