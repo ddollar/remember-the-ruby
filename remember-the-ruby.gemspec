@@ -8,7 +8,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency 'preferences',    '>= 0.1.3'
   
   s.name     = "remember-the-ruby"
-  s.version  = "0.3.1"
+  s.version  = "0.3.2"
   s.summary  = "A Ruby interface to Remember the Milk"
   s.homepage = "http://peervoice.com/software/remember-the-ruby"
   
