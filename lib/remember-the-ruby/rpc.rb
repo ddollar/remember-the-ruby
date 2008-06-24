@@ -24,7 +24,11 @@ class Transport
 
   def request(method, params={})
     params[:method] = method
-    doc = REXML::Document.new(@transport_http.get(rest_path(params)).body)
+
+    uri  = URI.encode(rest_path(params))
+    data = @transport_http.get(uri)
+    doc  = REXML::Document.new(data.body)
+
     doc.elements['rsp']
   end
 
