@@ -3,12 +3,11 @@ spec = Gem::Specification.new do |s|
   
   s.executables = [ 'rtr' ]
   
-  s.add_dependency 'rake',           '>= 0.8.1'
-  s.add_dependency 'term-ansicolor', '>= 1.0.3'
-  s.add_dependency 'preferences',    '>= 0.1.3'
+  s.add_dependency 'ddollar-preferences', '>= 0.1.3'
+  s.add_dependency 'term-ansicolor',      '>= 1.0.3'
   
   s.name     = "remember-the-ruby"
-  s.version  = "0.4.0"
+  s.version  = "0.4.1"
   s.summary  = "A Ruby interface to Remember the Milk"
   s.homepage = "http://peervoice.com/software/remember-the-ruby"
   
