@@ -7,7 +7,7 @@ require 'rexml/document'
 
 class Transport
   
-  TRANSPORT_URI = 'http://api.rememberthemilk.com'
+  TRANSPORT_URI = 'http://www.rememberthemilk.com'
   
   attr_accessor :key, :secret, :frob, :token
   
