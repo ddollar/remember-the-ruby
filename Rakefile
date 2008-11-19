@@ -28,7 +28,7 @@ namespace :gem do
     File.open("#{@config.name}.gemspec", 'r') do |gemspec|
       eval gemspec.read
     end
-    Gem::manage_gems
+    #Gem::manage_gems
     gemfile = Gem::Builder.new(spec).build
     Dir.mkdir('pkg') unless File.exists?('pkg')
     File.rename(gemfile, "pkg/#{gemfile}")
