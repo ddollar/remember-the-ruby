@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{remember-the-ruby}
-  s.version = "0.4.1"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Dollar"]
@@ -21,10 +21,9 @@ Gem::Specification.new do |s|
     ".gitignore",
      "README",
      "Rakefile",
+     "VERSION",
      "bin/.placeholder",
      "bin/rtr",
-     "config/gem.rb",
-     "config/gemspec.rb.erb",
      "doc/.placeholder",
      "lib/core_ext/datetime.rb",
      "lib/core_ext/enumerable.rb",
