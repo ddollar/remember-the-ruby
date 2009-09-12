@@ -20,7 +20,12 @@ class Commands
   
   register_method :tasks do |options|
 
-    puts "Oustanding Tasks".white.bold
+    plain = options.include?('plain')
+
+    header = "Outstanding Tasks"
+    header = header.white.bold unless plain
+
+    puts header
     puts
     
     tasks = $storage[:tasks] || api.default_list.tasks
@@ -35,6 +40,7 @@ class Commands
       diff = due.blank? ? nil : due - now
       
       color = case
+        when plain                              then nil
         when diff.nil?                          then :white
         when diff.abs < 1 && due.day == now.day then :yellow
         when diff < 0                           then :red
@@ -47,7 +53,8 @@ class Commands
       prefix = " *"
       prefix = prefix.send(color).bold if color
       
-      suffix = task.tags.map { |t| "@#{t.name}" }.join(' ').cyan
+      suffix = task.tags.map { |t| "@#{t.name}" }.join(' ')
+      suffix = suffix.cyan unless plain
 
       puts "#{prefix} #{title} #{suffix}"
       
