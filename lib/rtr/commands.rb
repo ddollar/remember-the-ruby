@@ -21,6 +21,7 @@ class Commands
   register_method :tasks do |options|
 
     plain = options.include?('plain')
+    fresh = options.include?('fresh')
 
     header = "Outstanding Tasks"
     header = header.white.bold unless plain
@@ -28,7 +29,8 @@ class Commands
     puts header
     puts
     
-    tasks = $storage[:tasks] || api.default_list.tasks
+    tasks   = $storage[:tasks] unless fresh
+    tasks ||= api.default_list.tasks
     
     tasks.sorted_by('next/due').reverse.each do |task|
 
