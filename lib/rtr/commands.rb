@@ -30,7 +30,7 @@ class Commands
     
     tasks = $storage[:tasks] || api.default_list.tasks
     
-    tasks.sorted_by('next/due').reverse.each do |task|
+    tasks.sorted_by('name').each do |task|
 
       now = DateTime.now
       
